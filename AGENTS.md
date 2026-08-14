@@ -11,6 +11,7 @@ record; this file is the map.
 - [FEATURE_REGISTRY.yaml](FEATURE_REGISTRY.yaml): feature inventory and ownership hints.
 - [README.md](README.md): user-facing project overview.
 - [apps/api/tests/RUNNING_TESTS.md](apps/api/tests/RUNNING_TESTS.md): backend test workflow.
+- [WORKFLOW.md](WORKFLOW.md): live config for the Symphony autonomous orchestrator, an external daemon that polls this repo's Linear project and drives unattended Codex agents through ticket automation. Not legacy docs: do not move, delete, or migrate it into `docs/`.
 
 ## Commands
 
