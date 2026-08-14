@@ -1,5 +1,7 @@
 # Agent Development Guide
 
+Read `RULES.md` before making changes.
+
 ## Commands
 
 - `pnpm dev` - Start all dev servers (web:3000, admin:3001)
@@ -10,6 +12,10 @@
 - `pnpm fix` - Auto-fix format and lint issues
 - `pnpm turbo run <command> --filter=<package>` - Target specific package/app
 - `pnpm --filter=@plane/ui storybook` - Start Storybook on port 6006
+
+For local context gathering, run `bash scripts/context.sh` or use the
+`.claude/commands/context.md` command instead of asking for pasted branch or
+MR status.
 
 ## Code Style
 
