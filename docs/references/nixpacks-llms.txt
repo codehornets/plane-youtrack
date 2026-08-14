@@ -1,0 +1,3 @@
+Repository Nixpacks reference for LLMs.
+
+Use this file for build and runtime assumptions that should stay close to the repo.

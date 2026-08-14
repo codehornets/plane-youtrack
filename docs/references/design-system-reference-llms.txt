@@ -1,0 +1,3 @@
+Repository design-system reference for LLMs.
+
+Use this file for stable pointers to the repo's component and visual language.
