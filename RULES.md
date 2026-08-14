@@ -9,3 +9,5 @@
    status.
 4. If something is unclear, pick the smallest safe assumption and note it in
    your handoff or workpad.
+
+6. Optimize for legibility: keep the app bootable per git worktree where possible and surface logs, metrics, and traces in a form Codex can inspect directly. Prefer ephemeral local observability stacks for task-scoped debugging, and use queryable logs or metrics sources like LogQL and PromQL when available.

@@ -1,42 +1,48 @@
 # Agent Development Guide
 
-Read `RULES.md` before making changes.
+Read `RULES.md` first. `docs/` is the repository knowledge base and system of
+record; this file is the map.
+
+## Start here
+
+- [ARCHITECTURE.md](ARCHITECTURE.md): top-level map of apps, packages, and test surfaces.
+- [docs/index.md](docs/index.md): docs portal and knowledge-base index.
+- [BOUNDARIES.md](BOUNDARIES.md): repo-level architectural and runtime boundaries.
+- [FEATURE_REGISTRY.yaml](FEATURE_REGISTRY.yaml): feature inventory and ownership hints.
+- [README.md](README.md): user-facing project overview.
+- [apps/api/tests/RUNNING_TESTS.md](apps/api/tests/RUNNING_TESTS.md): backend test workflow.
 
 ## Commands
 
-- `pnpm dev` - Start all dev servers (web:3000, admin:3001)
-- `pnpm build` - Build all packages and apps
-- `pnpm check` - Run all checks (format, lint, types)
-- `pnpm check:lint` - OxLint across all packages
-- `pnpm check:types` - TypeScript type checking
-- `pnpm fix` - Auto-fix format and lint issues
-- `pnpm turbo run <command> --filter=<package>` - Target specific package/app
-- `pnpm --filter=@plane/ui storybook` - Start Storybook on port 6006
+- `pnpm dev` - Start all dev servers (`web:3000`, `admin:3001`).
+- `pnpm build` - Build all packages and apps.
+- `pnpm check` - Run format, lint, and types.
+- `pnpm check:lint` - OxLint across all packages.
+- `pnpm check:types` - TypeScript type checking.
+- `pnpm fix` - Auto-fix format and lint issues.
+- `pnpm turbo run <command> --filter=<package>` - Target a specific package or app.
+- `pnpm --filter=@plane/ui storybook` - Start Storybook on port 6006.
 
-For local context gathering, run `bash scripts/context.sh` or use the
-`.claude/commands/context.md` command instead of asking for pasted branch or
-MR status.
+## Repository shape
 
-## Code Style
+- `apps/`: user-facing apps and backend services.
+- `packages/`: shared libraries, UI, state, and infrastructure glue.
+- `docs/`: source of truth for design, plans, references, and scorecards.
+- `docker-compose*.yml`, `setup.sh`: local backend/test orchestration.
 
-- **Imports**: Use `workspace:*` for internal packages, `catalog:` for external deps
-- **TypeScript**: Strict mode enabled, all files must be typed
-- **Formatting**: oxfmt, run `pnpm fix:format`
-- **Linting**: OxLint with shared `.oxlintrc.json` config
-- **Naming**: camelCase for variables/functions, PascalCase for components/types
-- **Error Handling**: Use try-catch with proper error types, log errors appropriately
-- **State Management**: MobX stores in `packages/shared-state`, reactive patterns
-- **Testing**: All features require unit tests, use existing test framework per package
-- **Components**: Build in `@plane/ui` with Storybook for isolated development
+## Working rules
 
-## Backend tests (Docker)
+- Use `bash scripts/context.sh` or the repo context command for branch/status/PR context.
+- Keep changes scoped to the requested surface.
+- Prefer the smallest verification command that proves the change.
+- Preserve legibility: logs, metrics, and traces should stay directly inspectable.
+- Prefer ephemeral local observability stacks and queryable logs or metrics when debugging.
+- Use `workspace:*` for internal packages and `catalog:` for external deps.
+- Keep TypeScript strict, typed, and formatted with `oxfmt`.
+- Keep backend test expectations aligned with the Docker-based API suite.
 
-The Django/pytest suite for `apps/api` runs in an isolated stack defined by `docker-compose-test.yml` at the repo root.
+## Knowledge maintenance
 
-Prereq (once): `./setup.sh` — generates `apps/api/.env` from `.env.example`.
-
-- Full suite: `docker compose -f docker-compose-test.yml up --build --abort-on-container-exit --exit-code-from api-tests`
-- Subset: `docker compose -f docker-compose-test.yml run --rm api-tests pytest -m unit`
-- Teardown: `docker compose -f docker-compose-test.yml down -v`
-
-See `apps/api/tests/RUNNING_TESTS.md` for the full walkthrough and troubleshooting; see `apps/api/tests/TESTING_GUIDE.md` for test conventions and fixtures.
+- Update the relevant `docs/` page when behavior changes.
+- Add new design notes under `docs/design-docs/`.
+- Track execution work under `docs/exec-plans/`.
