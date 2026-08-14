@@ -1,0 +1,3 @@
+Repository uv reference for LLMs.
+
+Use this file for Python environment and dependency-management notes.
